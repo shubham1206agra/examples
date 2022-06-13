@@ -38,51 +38,6 @@ function installDeps() {
         wget -q https://raw.githubusercontent.com/shubham1206agra/examples/master/binder/environment.yml
     fi
     mamba env update -f environment.yml
-    npm install -g ijavascript 
-    ijsinstall 
-    echo "*********************************"
-    echo "Installing SoS kernel"
-    echo "*********************************"
-    pip install sos-xeus-cling sos-javascript sos-python sos-r sos-julia 
-    echo "*********************************"
-    echo "Removing C++11 & C++17 Kernels"
-    echo "*********************************"
-    if [[ -d "${CONDA_PREFIX}/share/jupyter/kernels/xcpp11" ]]; then
-        jupyter kernelspec remove -f xcpp11 
-    fi
-    if [[ -d "${CONDA_PREFIX}/share/jupyter/kernels/xcpp17" ]]; then
-        jupyter kernelspec remove -f xcpp17 
-    fi
-    echo "*********************************"
-    echo "Configuring lab environment"
-    echo "*********************************"
-    if [[ -f "./kernel.json" ]]; then
-        echo " "
-    else
-        wget -q https://raw.githubusercontent.com/shubham1206agra/examples/master/binder/kernel.json
-    fi
-    sed -i "4 s@/srv/conda/envs/notebook/bin/xcpp@$CONDA_PREFIX/bin/xcpp@g" kernel.json
-    cp kernel.json $CONDA_PREFIX/share/jupyter/kernels/xcpp14/
-    if [[ -f "./xeus-cling.hpp" ]]; then
-        echo " "
-    else
-        wget -q https://raw.githubusercontent.com/shubham1206agra/examples/master/binder/xeus-cling.hpp
-    fi
-    sed -i "s@/srv/conda/envs/notebook@$CONDA_PREFIX@g" xeus-cling.hpp
-    cp xeus-cling.hpp $CONDA_PREFIX/include/mlpack/
-    echo "*********************************"
-    echo "Cloning mlpack/examples repo"
-    echo "*********************************"
-    if [[ -d "examples" ]]; then
-        cd examples && git pull origin master && cd ..
-    else
-        git clone https://github.com/mlpack/examples.git 
-    fi
-    echo "*********************************"
-    echo "Copying utilies to lab environment"
-    echo "*********************************"
-    cp -r ./examples/utils/* $CONDA_PREFIX/include/
-    cleanUp
 }
 
 echo "***********************************"
@@ -119,10 +74,3 @@ else
         fi
     fi
 fi
-
-echo "***************************"
-echo "Environment Setup Completed"
-echo "***************************"
-echo "Usage: conda activate ${envname}"
-echo "cd examples"
-echo "jupyter lab"
