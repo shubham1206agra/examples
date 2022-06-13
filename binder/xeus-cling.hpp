@@ -1,4 +1,4 @@
-#pragma cling load("/usr/lib/x86_64-linux-gnu/libarmadillo.so")
+#pragma cling load("/srv/conda/envs/notebook/lib/libarmadillo.so")
 #pragma cling load("/code/build/lib/libmlpack.so")
 #pragma cling load("/srv/conda/envs/notebook/lib/libomp.so")
 #pragma cling load("/srv/conda/envs/notebook/lib/libpython3.so")
