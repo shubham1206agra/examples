@@ -35,7 +35,7 @@ function installDeps() {
     if [[ -f "./environment.yml" ]]; then
         echo " "
     else
-        wget -q https://raw.githubusercontent.com/mlpack/examples/master/binder/environment.yml
+        wget -q https://raw.githubusercontent.com/shubham1206agra/examples/master/binder/environment.yml
     fi
     mamba env update -f environment.yml
     npm install -g ijavascript 
@@ -59,14 +59,14 @@ function installDeps() {
     if [[ -f "./kernel.json" ]]; then
         echo " "
     else
-        wget -q https://raw.githubusercontent.com/mlpack/examples/master/binder/kernel.json
+        wget -q https://raw.githubusercontent.com/shubham1206agra/examples/master/binder/kernel.json
     fi
     sed -i "4 s@/srv/conda/envs/notebook/bin/xcpp@$CONDA_PREFIX/bin/xcpp@g" kernel.json
     cp kernel.json $CONDA_PREFIX/share/jupyter/kernels/xcpp14/
     if [[ -f "./xeus-cling.hpp" ]]; then
         echo " "
     else
-        wget -q https://raw.githubusercontent.com/mlpack/examples/master/binder/xeus-cling.hpp
+        wget -q https://raw.githubusercontent.com/shubham1206agra/examples/master/binder/xeus-cling.hpp
     fi
     sed -i "s@/srv/conda/envs/notebook@$CONDA_PREFIX@g" xeus-cling.hpp
     cp xeus-cling.hpp $CONDA_PREFIX/include/mlpack/
